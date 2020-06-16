@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  proxy:
+    image: nginx:stable
+    container_name: goaccess_nginx
+    depends_on:
+      - app
+    volumes:
+      - ./log/access.log:/var/log/nginx/access.log
+      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - goaccess_app:/usr/share/nginx
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 80:80
+      - 7890:7890
+  app:
+    image: allinurl/goaccess:latest
+    container_name: goaccess_app
+    command: --no-global-config --config-file=/goaccess/config/goaccess.conf
+    volumes:
+      - ./config/goaccess/goaccess.conf:/goaccess/config/goaccess.conf:ro
+      - ./data/GeoLite2-City.mmdb:/goaccess/data/GeoLite2-City.mmdb
+      - ./log/access.log:/goaccess/access.log:ro
+      - goaccess_app:/var/www/goaccess
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=zh_CN.UTF-8
+volumes:
+  goaccess_app:
+    # name: goaccess_app # volume 别名
