@@ -5,7 +5,6 @@
 1. Create empty access.log file:
 
     ```
-    $ mkdir -p log/nginx
     $ touch log/nginx/access.log
     ```
 
@@ -17,8 +16,8 @@
 
 3. Browse
 
-    - your application on `http://127.0.0.1:80`
-    - goaccess on `http://127.0.0.1:37890/goaccess`
+    - your Application on `http://127.0.0.1:80`
+    - GoAccess on `http://127.0.0.1:7890/goaccess/report.html`
 
 --------
 
@@ -30,7 +29,9 @@
    $ vim config/nginx/access.conf
    ```
 
-2. Change GeoIP library to enterprise version in Dockerfile.
+2. Change GeoIP library to enterprise version in `data`.
+
+    example：`data/GeoLite2-City.mmdb`
 
 ### Ref
 Fork from https://github.com/icamys/docker-goaccess-nginx
