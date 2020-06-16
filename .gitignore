@@ -1,3 +1,2 @@
 .DS_Store
-log
-Geo*
+log/access.log
